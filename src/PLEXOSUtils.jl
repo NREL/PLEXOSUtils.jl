@@ -47,6 +47,9 @@ plexostables = [
     PLEXOSTable("t_membership", :memberships, :PLEXOSMembership, 5, "membership_id"),
     PLEXOSTable("t_attribute_data", :attribute_data, :PLEXOSAttributeData, 5),
 
+    PLEXOSTable("t_custom_column", :customcolumns, :PLEXOSCustomColumn, 3, "column_id"),
+    PLEXOSTable("t_memo_object", :memos, :PLEXOSMemoObject, 5),
+
     PLEXOSTable("t_period_0", :intervals, :PLEXOSPeriod0, 1, "interval_id", :datetime),
     PLEXOSTable("t_period_1", :days, :PLEXOSPeriod1, 1, "day_id", :date),
     PLEXOSTable("t_period_2", :weeks, :PLEXOSPeriod2, 1, "week_id", :week_ending),

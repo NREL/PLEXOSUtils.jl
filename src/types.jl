@@ -159,6 +159,27 @@ struct PLEXOSCollection
 end
 
 
+struct PLEXOSCustomColumn
+    name::String
+    position::Int
+    class::PLEXOSClass
+
+    function PLEXOSCustomColumn(e::Node, d::AbstractDataset)
+
+        name = getchildtext("name", e)
+        position = getchildint("position", e)
+        class_idx = getchildint("class_id", e)
+
+        if isassigned(d.classes, class_idx)
+            new(name, position, d.classes[class_idx])
+        else
+            new(name, position)
+        end
+
+    end
+
+end
+
 struct PLEXOSProperty
     name::String
     summaryname::String
@@ -261,6 +282,26 @@ struct PLEXOSAttributeData
 
 end
 
+struct PLEXOSMemoObject
+    value::String
+    column::PLEXOSCustomColumn
+    object::PLEXOSObject
+
+    function PLEXOSMemoObject(e::Node, d::AbstractDataset)
+
+        value = getchildtext("value", e)
+        object_idx = getchildint("object_id", e)
+        column = d.customcolumns[getchildint("column_id", e)]
+
+        if isassigned(d.objects, object_idx)
+            new(value, column, d.objects[object_idx])
+        else
+            new(value, column)
+        end
+
+    end
+
+end
 
 # Results
 
