@@ -1,7 +1,7 @@
 module PLEXOSUtils
 
 import EzXML: Document, eachelement, namespace, Node, nodecontent, parsexml
-import InfoZIP: Archive, open_zip
+import libzip_jll: libzip
 
 export open_plexoszip, PLEXOSSolutionDataset, PLEXOSSolutionDatasetSummary
 
@@ -73,6 +73,7 @@ plexostables_lookup = Dict(x.name => x for x in plexostables)
 include("types.jl")
 include("PLEXOSSolutionDatasetSummary.jl")
 include("PLEXOSSolutionDataset.jl")
+include("libzip.jl")
 include("utils.jl")
 
 end
