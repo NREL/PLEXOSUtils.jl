@@ -12,13 +12,12 @@ end
 
 function _open_plexoszip(zippath::String)
     isfile(zippath) || error("$zippath does not exist")
-    archive = open_zip(zippath)
-    return archive
+    return open_zip(zippath)
 end
 
 defaultxml(zippath::String) = replace(basename(zippath), r".zip$"=>".xml")
 
-function perioddata(archive::Archive)
+function perioddata(archive::Dict{String,Vector{UInt8}})
     results = Dict{Int,Vector{UInt8}}()
     for filename in keys(archive)
         rgx = match(r"t_data_(\d).BIN", filename)
