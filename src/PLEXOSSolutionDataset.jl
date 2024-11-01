@@ -40,8 +40,8 @@ function PLEXOSSolutionDataset(xml::Document)
     for loadorder in 1:7
         for element in eachelement(xml.root)
 
-            # Ignore the band table
-            element.name == "t_band" && continue
+            # Ignore given tables:
+            !(element.name in keys(plexostables_lookup)) && continue
 
             table = plexostables_lookup[element.name]
             table.loadorder == loadorder || continue
