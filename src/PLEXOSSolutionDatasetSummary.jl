@@ -17,14 +17,15 @@ function PLEXOSSolutionDatasetSummary(
 
 end
 
-function PLEXOSSolutionDatasetSummary(xml::Document)
+function PLEXOSSolutionDatasetSummary(xml::Document;
+    ignored_tables::Vector{String}=IGNORED_TABLES)
 
     summary = PLEXOSSolutionDatasetSummary()
 
     for element in eachelement(xml.root)
 
-        # Ignore the band table
-        element.name == "t_band" && continue
+        # Ignore given tables:
+        element.name in ignored_tables && continue
 
         table = plexostables_lookup[element.name]
         count, maxidx = getfield(summary, table.fieldname)

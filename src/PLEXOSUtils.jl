@@ -5,6 +5,13 @@ import libzip_jll: libzip
 
 export open_plexoszip, PLEXOSSolutionDataset, PLEXOSSolutionDatasetSummary
 
+# Table types to ignore when parsing the PLEXOS XML.
+const _DEFAULT_IGNORED_TABLES = ["t_band"]
+IGNORED_TABLES = deepcopy(_DEFAULT_IGNORED_TABLES)
+# Usage: customise which table types are ignored (e.g. "t_1", "t_2") by setting 
+#   PLEXOSUtils.IGNORED_TABLES = [ "t_1", "t_2"]
+# before calling any exported functions from this module.
+
 struct PLEXOSTable
 
     name::String

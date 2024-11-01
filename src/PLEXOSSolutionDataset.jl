@@ -31,7 +31,8 @@ function PLEXOSSolutionDataset(
     return PLEXOSSolutionDataset(xml)
 end
 
-function PLEXOSSolutionDataset(xml::Document)
+function PLEXOSSolutionDataset(xml::Document;
+    ignored_tables::Vector{String}=IGNORED_TABLES)
 
     summary = PLEXOSSolutionDatasetSummary(xml)
     result = PLEXOSSolutionDataset(summary, consolidated=false)
@@ -40,8 +41,8 @@ function PLEXOSSolutionDataset(xml::Document)
     for loadorder in 1:7
         for element in eachelement(xml.root)
 
-            # Ignore the band table
-            element.name == "t_band" && continue
+            # Ignore given tables:
+            element.name in ignored_tables && continue
 
             table = plexostables_lookup[element.name]
             table.loadorder == loadorder || continue
