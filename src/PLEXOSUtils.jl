@@ -75,7 +75,7 @@ plexostables = [
 
 ]
 
-plexostables_lookup = Dict(x.name => x for x in plexostables)
+plexostables_lookup = Dict(x.name => x for x in plexostables if !(x.name in IGNORED_TABLES))
 
 include("types.jl")
 include("PLEXOSSolutionDatasetSummary.jl")

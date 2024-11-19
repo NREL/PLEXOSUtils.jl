@@ -17,16 +17,15 @@ function PLEXOSSolutionDatasetSummary(
 
 end
 
-function PLEXOSSolutionDatasetSummary(xml::Document;
-    ignored_tables::Vector{String}=IGNORED_TABLES)
+function PLEXOSSolutionDatasetSummary(xml::Document)
 
     summary = PLEXOSSolutionDatasetSummary()
 
     for element in eachelement(xml.root)
 
         # Ignore given tables:
-        element.name in ignored_tables && continue
-
+        !(element.name in keys(plexostables_lookup)) && continue
+        
         table = plexostables_lookup[element.name]
         count, maxidx = getfield(summary, table.fieldname)
 
